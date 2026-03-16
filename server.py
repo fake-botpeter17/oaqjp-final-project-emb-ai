@@ -1,7 +1,7 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from EmotionDetection import emotion_detector
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static")
 
 def find_max(res):
     current_max_name = ""
@@ -12,12 +12,15 @@ def find_max(res):
             current_max_number = res[emotion]
     return current_max_name
 
-@app.route("/emotionDetector")
+@app.route("/")
 def home():
-    text = request.data
-    res = emotion_detector(text)
-    return res | {"dominant_emotion":find_max(res)}
+    return render_template("index.html")
 
+@app.route("/emotionDetector")
+def detector():
+    text = request.args.get("textToAnalyze")
+    result = emotion_detector(text)
+    return result | {"dominant_emotion":find_max(result)}
 
 if __name__ == "__main__":
-    app.run(port = 5000)
+    app.run(debug=True, port = 5000)
