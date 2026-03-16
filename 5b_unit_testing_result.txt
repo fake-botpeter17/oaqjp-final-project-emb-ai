@@ -1,0 +1,6 @@
+theia@theiadocker-nebinson1:/home/project/final_project/oaqjp-final-project-emb-ai$ python3 5a_unit_testing.py 
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.591s
+
+OK
